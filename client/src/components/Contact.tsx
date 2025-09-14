@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -6,7 +7,10 @@ import {
   ExternalLink,
   MessageSquare,
   Youtube,
-  Users
+  Users,
+  Send,
+  Heart,
+  Sparkles
 } from 'lucide-react';
 import { SiX, SiFacebook, SiInstagram, SiReddit, SiMedium, SiDiscord } from 'react-icons/si';
 
