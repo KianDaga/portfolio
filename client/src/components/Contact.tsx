@@ -100,13 +100,26 @@ export default function Contact() {
                 Primary Contact
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 relative z-10">
               {contactMethods.map((method, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-accent rounded-lg hover-elevate">
-                  <div className="flex items-center gap-3">
-                    <method.icon className={`w-5 h-5 ${method.color}`} />
+                <motion.div 
+                  key={index} 
+                  className="flex items-center justify-between p-4 bg-gradient-to-r from-accent/50 to-primary/10 rounded-xl hover-elevate border border-primary/10"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 + 1.0 }}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                >
+                  <div className="flex items-center gap-4">
+                    <motion.div
+                      className="p-2 rounded-lg bg-gradient-to-br from-primary/20 to-chart-2/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                    >
+                      <method.icon className={`w-6 h-6 ${method.color}`} />
+                    </motion.div>
                     <div>
-                      <div className="font-medium" data-testid={`text-contact-${method.name.toLowerCase()}`}>
+                      <div className="font-semibold" data-testid={`text-contact-${method.name.toLowerCase()}`}>
                         {method.name}
                       </div>
                       <div className="text-sm text-muted-foreground">{method.value}</div>
@@ -116,11 +129,12 @@ export default function Contact() {
                     variant="ghost"
                     size="icon"
                     onClick={() => window.open(method.link, '_blank')}
+                    className="hover:bg-primary/20"
                     data-testid={`button-contact-${method.name.toLowerCase()}`}
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-5 h-5" />
                   </Button>
-                </div>
+                </motion.div>
               ))}
             </CardContent>
           </Card>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Star, Zap, Filter } from 'lucide-react';
 import futureAiScreenshot from '@assets/screenshot-1757811492138.png';
 
 export default function Projects() {
@@ -122,29 +123,89 @@ export default function Projects() {
   const otherProjects = filteredProjects.filter(project => !project.featured);
 
   return (
-    <section id="projects" className="py-20 bg-card/30" data-testid="section-projects">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4" data-testid="text-projects-title">Featured Projects</h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto" data-testid="text-projects-description">
+    <section id="projects" className="py-20 relative overflow-hidden" data-testid="section-projects">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-card/30 via-background to-primary/10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(120,119,198,0.1),transparent_50%)]" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="flex items-center justify-center gap-3 mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              <Star className="w-8 h-8 text-primary" />
+            </motion.div>
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-primary via-chart-2 to-primary bg-clip-text text-transparent" data-testid="text-projects-title">
+              Featured Projects
+            </h2>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Zap className="w-8 h-8 text-chart-3" />
+            </motion.div>
+          </motion.div>
+          <motion.div 
+            className="w-24 h-1 bg-gradient-to-r from-primary to-chart-2 mx-auto rounded-full mb-4"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.4 }}
+          />
+          <motion.p 
+            className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed" 
+            data-testid="text-projects-description"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             A showcase of my development work spanning web applications and Python solutions
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Category Filter */}
-        <div className="flex justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? 'default' : 'outline'}
-              onClick={() => setSelectedCategory(category)}
-              data-testid={`button-filter-${category.toLowerCase()}`}
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
+        <motion.div 
+          className="flex justify-center gap-4 mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <div className="flex items-center gap-3 p-2 bg-card/50 backdrop-blur-sm rounded-2xl border border-primary/20 shadow-lg">
+            <Filter className="w-5 h-5 text-primary" />
+            {categories.map((category, index) => (
+              <motion.div key={category} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant={selectedCategory === category ? 'default' : 'ghost'}
+                  onClick={() => setSelectedCategory(category)}
+                  className={selectedCategory === category ? 
+                    'bg-gradient-to-r from-primary to-chart-2 shadow-lg' : 
+                    'hover:bg-primary/10'
+                  }
+                  data-testid={`button-filter-${category.toLowerCase()}`}
+                >
+                  {category}
+                </Button>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Featured Projects */}
         {featuredProjects.length > 0 && (
