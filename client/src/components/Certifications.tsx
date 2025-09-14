@@ -35,11 +35,11 @@ export default function Certifications() {
       description: 'Foundational Python programming concepts and syntax'
     },
     {
-      title: 'Basic HTML and CSS Course',
+      title: 'AdvancedHTML and CSS Course',
       provider: 'Cyborg Robotics',
       date: 'July 2022',
       status: 'completed', 
-      description: 'Fundamental web development skills in HTML and CSS'
+      description: 'Advanced web development skills in HTML and CSS'
     }
   ];
 

@@ -71,14 +71,14 @@ export default function Contact() {
     {
       name: 'Medium',
       username: 'Kian daga',
-      link: 'https://medium.com/@Kian%20daga',
+      link: 'https://medium.com/@kiandaga3',
       icon: SiMedium,
       color: 'text-foreground'
     },
     {
       name: 'Discord',
       username: 'fifabros.official',
-      link: 'https://discord.com/app',
+      link: 'https://discord.com/users/1195960990098010112',
       icon: SiDiscord,
       color: 'text-indigo-600'
     }

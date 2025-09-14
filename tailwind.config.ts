@@ -83,9 +83,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Inter", "var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["JetBrains Mono", "var(--font-mono)"],
+        sans: ["SF Pro Display", "SF Pro Text", "-apple-system", "BlinkMacSystemFont", "Inter", "system-ui", "sans-serif"],
+        serif: ["SF Pro Display", "SF Pro Text", "-apple-system", "BlinkMacSystemFont", "serif"],
+        mono: ["SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "JetBrains Mono", "monospace"],
       },
       keyframes: {
         "accordion-down": {
@@ -96,10 +96,44 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "glow": {
+          "0%, 100%": { 
+            boxShadow: "0 0 15px rgba(59, 130, 246, 0.3), 0 0 30px rgba(59, 130, 246, 0.2)" 
+          },
+          "50%": { 
+            boxShadow: "0 0 25px rgba(59, 130, 246, 0.5), 0 0 45px rgba(59, 130, 246, 0.3)" 
+          },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "bounce-slow": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 8s ease-in-out infinite",
+        "glow": "glow 3s ease-in-out infinite",
+        "shimmer": "shimmer 3s linear infinite",
+        "bounce-slow": "bounce-slow 4s ease-in-out infinite",
+        "fade-in": "fade-in 0.6s ease-out",
+        "slide-up": "slide-up 0.8s ease-out",
       },
     },
   },

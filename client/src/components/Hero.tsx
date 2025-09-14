@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { ArrowDown, Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
-import profileImage from '@assets/generated_images/Professional_developer_headshot_portrait_90c4fea3.png';
+const profileImage = 'https://avatars.githubusercontent.com/u/105967581?v=4';
 
 // Custom Typed Text Component
 function TypedText() {
@@ -56,7 +56,7 @@ function TypedText() {
   );
 }
 
-export default function Hero() {
+const Hero = memo(function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   useEffect(() => {
@@ -91,39 +91,17 @@ export default function Hero() {
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
       </div>
       
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            animate={{
-              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
-              y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight],
-            }}
-            transition={{
-              duration: Math.random() * 20 + 10,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-            }}
-          />
-        ))}
-      </div>
       
       {/* Mouse Follow Effect */}
       <motion.div
-        className="absolute w-96 h-96 pointer-events-none opacity-30"
+        className="absolute w-64 h-64 pointer-events-none opacity-20 gpu-accelerated"
         animate={{
-          x: mousePosition.x - 192,
-          y: mousePosition.y - 192,
+          x: mousePosition.x - 128,
+          y: mousePosition.y - 128,
         }}
-        transition={{ type: "spring", damping: 30 }}
+        transition={{ type: "spring", damping: 40, stiffness: 100 }}
       >
-        <div className="w-full h-full bg-gradient-radial from-primary/20 to-transparent rounded-full blur-xl" />
+        <div className="w-full h-full bg-gradient-radial from-primary/15 to-transparent rounded-full blur-2xl" />
       </motion.div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -137,30 +115,55 @@ export default function Hero() {
             initial={{ scale: 0, rotate: 180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
+            className="relative"
           >
-            <Avatar className="w-32 h-32 mx-auto mb-6 border-4 border-primary/30 shadow-2xl shadow-primary/20" data-testid="img-profile">
-              <AvatarImage src={profileImage} alt="Kian Daga" />
-              <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-chart-2 text-primary-foreground">KD</AvatarFallback>
+            {/* Glowing rings around avatar */}
+            <div className="absolute inset-0 w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-primary/20 to-chart-2/20 animate-pulse-glow" />
+            <div className="absolute inset-2 w-28 h-28 mx-auto rounded-full bg-gradient-to-r from-primary/10 to-chart-2/10 animate-float" />
+            
+            <Avatar className="relative w-32 h-32 mx-auto mb-6 border-4 border-primary/50 shadow-2xl shadow-primary/30 gpu-accelerated" data-testid="img-profile">
+              <AvatarImage src={profileImage} alt="Kian Daga" className="object-cover" />
+              <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-chart-2 text-primary-foreground font-bold">KD</AvatarFallback>
             </Avatar>
+            
+            {/* Floating particles around avatar */}
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full"
+                animate={{
+                  x: [0, Math.cos(i * 60 * Math.PI / 180) * 50, 0],
+                  y: [0, Math.sin(i * 60 * Math.PI / 180) * 50, 0],
+                  scale: [0.3, 0.8, 0.3],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut",
+                }}
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            ))}
           </motion.div>
           
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-chart-2 to-primary bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl font-bold mb-6"
             data-testid="text-name"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Hi, I'm <span className="relative inline-block">
-              Kian Daga
-              <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-primary to-chart-2 rounded-lg blur opacity-25"
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  opacity: [0.25, 0.4, 0.25]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
+            Hi, I'm <span className="relative bg-gradient-to-r from-primary via-chart-2 to-primary bg-clip-text text-transparent">
+              <span className="relative z-10">Kian Daga</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-shimmer bg-clip-text text-transparent">
+                Kian Daga
+              </div>
             </span>
           </motion.h1>
           
@@ -196,56 +199,38 @@ export default function Hero() {
             <Button 
               onClick={openResume}
               size="lg"
-              className="gap-3 bg-gradient-to-r from-primary to-chart-2 hover:from-primary/90 hover:to-chart-2/90 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="gap-3 bg-gradient-to-r from-primary to-chart-2 hover:from-primary/90 hover:to-chart-2/90 shadow-lg hover:shadow-xl transition-all duration-500 group relative overflow-hidden hover:scale-105"
               data-testid="button-resume"
             >
-              <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              View Resume
-              <Sparkles className="w-4 h-4 ml-1 opacity-70" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%] opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-500" />
+              <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+              <span className="relative z-10">View Resume</span>
+              <Sparkles className="w-4 h-4 ml-1 opacity-70 group-hover:animate-bounce relative z-10" />
             </Button>
             <Button 
               variant="outline" 
               size="lg"
               onClick={openGithub}
-              className="gap-3 border-2 border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300 group backdrop-blur-sm"
+              className="gap-3 border-2 border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-500 group backdrop-blur-sm relative overflow-hidden hover:scale-105"
               data-testid="button-github"
             >
-              <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              GitHub Profile
-              <Code2 className="w-4 h-4 ml-1 opacity-70" />
+              <Github className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <span className="relative z-10">GitHub Profile</span>
+              <Code2 className="w-4 h-4 ml-1 opacity-70 group-hover:animate-bounce relative z-10" />
             </Button>
           </motion.div>
           
-          {/* Floating Icons */}
-          <motion.div 
-            className="relative h-24 overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.8 }}
-          >
-            {['💻', '🐍', '⚡', '🚀', '✨'].map((icon, i) => (
-              <motion.div
-                key={i}
-                className="absolute text-2xl"
-                animate={{
-                  x: [0, Math.random() * 200 - 100, 0],
-                  y: [0, Math.random() * 100 - 50, 0],
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-                style={{
-                  left: `${20 + i * 15}%`,
-                  top: '50%',
-                }}
-              >
-                {icon}
-              </motion.div>
-            ))}
-          </motion.div>
+           {/* Static Tech Icons */}
+           <div className="flex justify-center gap-6 mt-8">
+             {['💻', '🐍', '⚡', '🚀', '✨', '🎯'].map((icon, i) => (
+               <div
+                 key={i}
+                 className="text-2xl opacity-60 hover:opacity-100 transition-opacity duration-300"
+               >
+                 {icon}
+               </div>
+             ))}
+           </div>
         </motion.div>
         
         <motion.div
@@ -274,4 +259,6 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
-}
+});
+
+export default Hero;
