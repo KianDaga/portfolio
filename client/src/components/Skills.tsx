@@ -129,7 +129,7 @@ export default function Skills() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            A comprehensive toolkit built through hands-on experience and continuous learning
+            A comprehensive portfolio of skills and techniques - percentages reflect proficiency levels
           </motion.p>
         </motion.div>
 
