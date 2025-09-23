@@ -1,0 +1,4 @@
+# Heroku Buildpack Configuration
+# This file tells Heroku which buildpacks to use
+
+https://github.com/heroku/heroku-buildpack-nodejs
