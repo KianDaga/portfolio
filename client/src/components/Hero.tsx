@@ -84,7 +84,7 @@ const Hero = memo(function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" data-testid="section-hero">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-40 md:pt-32" data-testid="section-hero">
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-chart-2/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]" />

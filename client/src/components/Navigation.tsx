@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Code, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   const navItems = [
     { name: 'Home', href: '#home', icon: '🏠' },
@@ -16,13 +15,6 @@ export default function Navigation() {
     { name: 'Contact', href: '#contact', icon: '📧' }
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -34,18 +26,14 @@ export default function Navigation() {
 
   return (
     <motion.nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-background/95 backdrop-blur-xl border-b border-border shadow-lg' 
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-xl border-b border-gray-200 shadow-lg transition-all duration-300 py-6 md:py-4"
       data-testid="navigation"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-28 md:h-24">
           {/* Enhanced Logo */}
           <motion.div 
             className="flex items-center gap-3"
@@ -62,7 +50,7 @@ export default function Navigation() {
               </div>
             </motion.div>
             <motion.div
-              className="font-bold text-2xl text-foreground"
+              className="font-bold text-2xl text-gray-900"
               data-testid="text-logo"
               whileHover={{ scale: 1.05 }}
             >
@@ -82,7 +70,7 @@ export default function Navigation() {
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="relative px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                className="relative px-4 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all duration-300 group"
                 data-testid={`link-nav-${item.name.toLowerCase()}`}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -95,11 +83,11 @@ export default function Navigation() {
                   <span className="font-medium">{item.name}</span>
                 </span>
                 <motion.div
-                  className="absolute inset-0 bg-accent rounded-lg opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 bg-gray-100 rounded-lg opacity-0 group-hover:opacity-100"
                   transition={{ duration: 0.3 }}
                 />
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full scale-x-0 group-hover:scale-x-100"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full scale-x-0 group-hover:scale-x-100"
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
@@ -116,7 +104,7 @@ export default function Navigation() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="w-12 h-12 rounded-xl bg-accent/50 backdrop-blur-md border border-border hover:bg-accent text-foreground"
+                className="w-12 h-12 rounded-xl bg-white backdrop-blur-md border border-gray-200 hover:bg-gray-100 text-gray-900"
                 data-testid="button-mobile-menu"
               >
                 <motion.div
@@ -141,7 +129,7 @@ export default function Navigation() {
               transition={{ duration: 0.3 }}
             >
               <motion.div 
-                className="px-4 pt-4 pb-6 space-y-2 bg-card backdrop-blur-xl border border-border rounded-2xl mt-4 shadow-2xl"
+                className="px-4 pt-4 pb-6 space-y-2 bg-white backdrop-blur-xl border border-gray-200 rounded-2xl mt-4 shadow-2xl"
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
@@ -150,7 +138,7 @@ export default function Navigation() {
                   <motion.button
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
-                    className="flex items-center gap-3 px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-xl w-full text-left transition-all duration-300 group"
+                    className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl w-full text-left transition-all duration-300 group"
                     data-testid={`link-mobile-nav-${item.name.toLowerCase()}`}
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}
@@ -161,7 +149,7 @@ export default function Navigation() {
                     <span className="text-xl">{item.icon}</span>
                     <span>{item.name}</span>
                     <motion.div
-                      className="ml-auto w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100"
+                      className="ml-auto w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100"
                       transition={{ duration: 0.3 }}
                     />
                   </motion.button>

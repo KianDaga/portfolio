@@ -141,7 +141,7 @@ export default function About() {
                 <div className="grid grid-cols-2 gap-6">
                   {[
                     { icon: Target, value: '3+', label: 'Years Experience', gradient: 'from-blue-500 to-cyan-500', bgGradient: 'from-blue-500/20 to-cyan-500/20', delay: 0.8 },
-                    { icon: Zap, value: '10+', label: 'Projects Completed', gradient: 'from-purple-500 to-pink-500', bgGradient: 'from-purple-500/20 to-pink-500/20', delay: 0.9 },
+                    { icon: Zap, value: '4', label: 'Projects Completed', gradient: 'from-purple-500 to-pink-500', bgGradient: 'from-purple-500/20 to-pink-500/20', delay: 0.9 },
                     { icon: Award, value: '5', label: 'Certifications', gradient: 'from-yellow-500 to-orange-500', bgGradient: 'from-yellow-500/20 to-orange-500/20', delay: 1.0 },
                     { icon: Code, value: '5', label: 'Languages', gradient: 'from-green-500 to-emerald-500', bgGradient: 'from-green-500/20 to-emerald-500/20', delay: 1.1 }
                   ].map((stat, index) => (
@@ -186,7 +186,7 @@ export default function About() {
                 {/* Additional Stats Row */}
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { icon: Users, value: '100%', label: 'Client Satisfaction', gradient: 'from-indigo-500 to-blue-500' },
+                    { icon: Users, value: '94%', label: 'Client Satisfaction', gradient: 'from-indigo-500 to-blue-500' },
                     { icon: Clock, value: '24/7', label: 'Availability', gradient: 'from-pink-500 to-rose-500' },
                     { icon: TrendingUp, value: '∞', label: 'Growth Mindset', gradient: 'from-emerald-500 to-teal-500' }
                   ].map((stat, index) => (
